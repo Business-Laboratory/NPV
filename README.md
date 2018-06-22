@@ -9,10 +9,11 @@ Often, an item or event is recorded with two data points, a value and a time. Th
 * Basic arithmatic between two NPVs
 > - Addition
 > - Subtraction
+> - Add an annuity payment to the value of a project
 * Arithmatic with constants
 > - Multiplication
 > - Division
-> - Make an NPV negative
+> - Make a NPV dollar value negative
 * Comparisons between two NPVs
 > - Equal to
 > - Greater than
