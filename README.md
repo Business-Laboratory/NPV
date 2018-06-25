@@ -3,7 +3,7 @@
 ![Imgur](https://i.imgur.com/HeTY4KK.png)
 
 ### Description:
-Often, an item or event is recorded with two data points, a value and a time. The value recorded is the dollar amount paid at the time of the event, and the time recorded is relative to the start of a project. If two items or events wish to be compared and/or combined, their time's must be equal. This calculator takes care of the tedious steps needed to compare or combine two dollar amounts at different points in time.
+This calculator takes care of the tedious steps needed to compare or combine two dollar amounts at different points in time. Often, an item or event is recorded with two data points, a value and a time. The value recorded is the dollar amount paid at the time of the event, and the time recorded is relative to the start of a project. If two items or events wish to be compared and/or combined, their time's must be equal. 
 
 ### Primary Functions:
 * Basic arithmatic between two NPVs
