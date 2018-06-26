@@ -63,12 +63,19 @@ class NPV(object):
         return
     
     def __str__(self):
+        """
+        Creates a string representation of the NPV
+        """
         return "NPV(time = {time}, value = {value}, rate = {rate})".format(time = str(self.time), value = str(self.value), rate = str(self.rate))
     
     def __repr__(self):
         return str(self)
 
     def set_rate(self, input_rate):
+        """
+        Replaces the current rate with the new rate
+        """
+
         if not isinstance(input_rate, (int, np.integer, float, np.float)):
             raise TypeError("The rate argument must be a number.")
 
@@ -112,6 +119,10 @@ class NPV(object):
         return new_NPV
 
     def __add__(self, other):
+        """
+        Converts both NPV objects to the earliest time between them and adds their
+        values together
+        """
         
         # check type
         if not isinstance(other, NPV):
@@ -125,7 +136,11 @@ class NPV(object):
         return new_NPV
         
     def __sub__(self, other):
-        
+        """
+        Converts both NPV objects to the earliest time between them and subtracts the inputed 
+        NPV object from the current one
+        """
+
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be subtracted from to NPVs")
@@ -138,6 +153,10 @@ class NPV(object):
         return new_NPV
 
     def force_add(self, other):
+        """
+        Adds two NPV values together if their rates are different from one another
+        """
+
         if (other.rate != self.rate):
             new_value = self.shift_to(0).value + other.shift_to(0).value
             new_NPV = NPV(0, new_value, 0)
@@ -146,6 +165,10 @@ class NPV(object):
             raise TypeError("Force_add is only to be used for NPVs with different rates. Please use __add__")
 
     def force_sub(self, other):
+        """
+        Subtracts the inputed NPV from the current NPV if their rates are different from one another
+        """
+
         if (other.rate != self.rate):
             new_value = self.shift_to(0).value - other.shift_to(0).value
             new_NPV = NPV(0, new_value, 0)
@@ -155,7 +178,10 @@ class NPV(object):
 
     
     def __rmul__(self, other):
-        
+        """
+        Multiplies an NPV value by a constant
+        """
+
         # check type
         if not isinstance(other, (int, float)):
             raise TypeError("NPV can only be multiplied by numbers.")
@@ -164,7 +190,10 @@ class NPV(object):
     __mul__ = __rmul__
     
     def __truediv__(self, other):
-        
+        """
+        Divides an NPV value by a constant
+        """
+
         # check type
         if not isinstance(other, (int, float)):
             raise TypeError("NPV can only be divided by numbers.")
@@ -172,10 +201,17 @@ class NPV(object):
         return NPV(self.time, self.value / other, self.rate)
     
     def __neg__(self):
+
+        """
+        Makes an NPV's value negative
+        """
         return NPV(self.time, -self.value, self.rate)
     
     def __eq__(self, other):
-        
+        """
+        Returns true if two NPV's values are equal at 
+        """
+
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
