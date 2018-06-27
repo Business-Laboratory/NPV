@@ -42,8 +42,8 @@ class NPV(object):
     global TOL
     TOL = 10**-6
     
-    __slots__ = ["time", "value", "rate", "periods", "cash_flow"]
-    def __init__(self, time, value, rate, periods=0, cash_flow=0):
+    __slots__ = ["time", "value", "rate"]
+    def __init__(self, time, value, rate):
         
         # check types
         if not isinstance(time, (int, np.integer)):
@@ -57,8 +57,6 @@ class NPV(object):
         self.time = time
         self.value = value
         self.rate = rate
-        self.periods = periods
-        self.cash_flow = cash_flow
 
         return
     
