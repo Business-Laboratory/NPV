@@ -63,18 +63,14 @@ class NPV(object):
         return
     
     def __str__(self):
-        """
-        Creates a string representation of the NPV
-        """
+        """ Creates a string representation of the NPV """
         return "NPV(time = {time}, value = {value}, rate = {rate})".format(time = str(self.time), value = str(self.value), rate = str(self.rate))
     
     def __repr__(self):
         return str(self)
 
     def set_rate(self, input_rate):
-        """
-        Replaces the current rate with the new rate
-        """
+        """ Replaces the current rate with the new rate """
 
         if not isinstance(input_rate, (int, np.integer, float, np.float)):
             raise TypeError("The rate argument must be a number.")
@@ -153,9 +149,7 @@ class NPV(object):
         return new_NPV
 
     def force_add(self, other):
-        """
-        Adds two NPV values together if their rates are different from one another
-        """
+        """ Adds two NPV values together if their rates are different from one another """
 
         if (other.rate != self.rate):
             new_value = self.shift_to(0).value + other.shift_to(0).value
@@ -165,9 +159,7 @@ class NPV(object):
             raise TypeError("Force_add is only to be used for NPVs with different rates. Please use __add__")
 
     def force_sub(self, other):
-        """
-        Subtracts the inputed NPV from the current NPV if their rates are different from one another
-        """
+        """ Subtracts the inputed NPV from the current NPV if their rates are different from one another """
 
         if (other.rate != self.rate):
             new_value = self.shift_to(0).value - other.shift_to(0).value
@@ -178,9 +170,7 @@ class NPV(object):
 
     
     def __rmul__(self, other):
-        """
-        Multiplies an NPV value by a constant
-        """
+        """ Multiplies an NPV value by a constant """
 
         # check type
         if not isinstance(other, (int, float)):
@@ -190,9 +180,7 @@ class NPV(object):
     __mul__ = __rmul__
     
     def __truediv__(self, other):
-        """
-        Divides an NPV value by a constant
-        """
+        """ Divides an NPV value by a constant """
 
         # check type
         if not isinstance(other, (int, float)):
@@ -201,16 +189,12 @@ class NPV(object):
         return NPV(self.time, self.value / other, self.rate)
     
     def __neg__(self):
-
-        """
-        Makes an NPV's value negative
-        """
+        """ Makes an NPV's value negative """
+        
         return NPV(self.time, -self.value, self.rate)
     
     def __eq__(self, other):
-        """
-        Returns true if two NPV's values are equal at 
-        """
+        """ Returns true if two NPV's values are equal """
 
         # check type
         if not isinstance(other, NPV):
@@ -222,6 +206,7 @@ class NPV(object):
         return abs(self.shift_to(new_time).value - other.shift_to(new_time).value) < TOL
     
     def __lt__(self, other):
+        """ Returns true if the current NPV's value is less than the inputted NPV """
         
         # check type
         if not isinstance(other, NPV):
@@ -233,7 +218,8 @@ class NPV(object):
         return self.shift_to(new_time).value < other.shift_to(new_time).value and self != other
     
     def __gt__(self, other):
-        
+        """ Returns true if the current NPV's value is greater than the inputted NPV """
+
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
@@ -243,8 +229,9 @@ class NPV(object):
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value > other.shift_to(new_time).value and self != other
     
-    def __le__(self, other):
-        
+    def __le__(self, other): 
+        """ Returns true if the current NPV's value is less than or equal to the inputted NPV """
+
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
@@ -254,8 +241,9 @@ class NPV(object):
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value < other.shift_to(new_time).value
     
-    def __ge__(self, other):
-        
+    def __ge__(self, other): 
+        """ Returns true if the current NPV's value is greater than or equal to the inputted NPV """
+
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")

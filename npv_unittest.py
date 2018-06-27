@@ -14,13 +14,13 @@ class TestNPVClass(unittest.TestCase):
 	# test .shift_to() checks type
 	# shift_to formula: Price / ((1 + rate) ^ time)
 	def test_shift_to(self):
-		self.assertAlmostEqual(NPV(1, 100, self.rate_a).shift_to(0).value, 100 / (1+self.rate_a))
-		self.assertAlmostEqual(NPV(0, 100, self.rate_a).shift_to(1).value, 100 * (1 + self.rate_a))
+		self.assertAlmostEqual(NPV(1, 100, self.rate_a).shift_to(0).value, 100 / (1+self.rate_a) ** 1)
+		self.assertAlmostEqual(NPV(0, 100, self.rate_a).shift_to(1).value, 100 / (1 + self.rate_a) ** -1)
 		self.assertRaises(TypeError, NPV(1, 100, self.rate_a).shift_to, "str")
 		self.assertRaises(TypeError, NPV(1, 100, self.rate_a).shift_to, 1.1)
 
 	# tests if 10 years of annuity payments of $15 were converted to a NPV
-	# NPV of Annuity formula: Price((1-(1 + rate)^(-Periods)) / rate)
+	# NPV of Annuity formula: Price((1 - (1 + rate)^(-Periods)) / rate)
 	def test_generate_annuity(self):
 		self.assertAlmostEqual(NPV(1, 0, self.rate_c, 10, 15).generate_annuity().value, 92.16850659)
 		self.assertAlmostEqual(NPV(1, 0, self.rate_a, 0, 0).generate_annuity().value, 0)
@@ -113,8 +113,8 @@ class TestNPVClass(unittest.TestCase):
 		self.assertRaises(ZeroDivisionError, NPV(1,1, self.rate_a).__truediv__, 0)
 
 	def test_set_rate(self):
-		self.assertEqual(NPV(1, 100, 0).set_rate(self.rate_a).rate , self.rate_a)
-		self.assertRaises(TypeError, NPV(1,100, self.rate_a).set_rate, "str")
+		self.assertEqual(NPV(1, 100, 1).set_rate(self.rate_b).rate , self.rate_b)
+		self.assertRaises(TypeError, NPV(1,100, self.rate_b).set_rate, "str")
 		
 	
 	def test_force_add(self):
