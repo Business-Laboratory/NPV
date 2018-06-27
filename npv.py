@@ -244,7 +244,7 @@ def generate_annuity(periods, cash_flow, rate):
     cash_flow : How much money is payed per period
     rate : rate of growth per period
     """
-    new_NPV = NPV(0, 0, 0)
+    new_NPV = NPV(0, 0, rate)
     for x in range(1, periods + 1):
         temp_NPV = NPV(x, cash_flow, rate).shift_to(0)
         new_NPV.value += temp_NPV.value

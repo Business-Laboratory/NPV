@@ -24,6 +24,7 @@ class TestNPVClass(unittest.TestCase):
 	# NPV of Annuity formula: Price((1 - (1 + rate)^(-Periods)) / rate)
 	def test_generate_annuity(self):
 		self.assertAlmostEqual(generate_annuity(10, 15, self.rate_c).value, 92.16850659)
+		self.assertTrue(generate_annuity(10, 15, self.rate_c) == NPV(0, 92.16850659, self.rate_c))
 		self.assertAlmostEqual(generate_annuity(0, 0, self.rate_a).value, 0)
 
 	# test == works
