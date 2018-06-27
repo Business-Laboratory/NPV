@@ -97,23 +97,6 @@ class NPV(object):
         new_NPV = NPV(new_time, new_value, self.rate)
         return new_NPV
 
-    def generate_annuity(self):
-        """
-        Adds a present value of an annuity to an original project cost
-
-        Arguments:
-        ----------
-        periods : How many times the payment will be collected/made
-        rate : rate of growth per period
-        cash_flow : How much money is payed per period
-        """
-
-        new_NPV = self.shift_to(0)
-        for x in range(1, self.periods + 1):
-            temp_NPV = NPV(x, self.cash_flow, self.rate).shift_to(0)
-            new_NPV.value += temp_NPV.value
-        return new_NPV
-
     def __add__(self, other):
         """
         Converts both NPV objects to the earliest time between them and adds their
@@ -252,3 +235,19 @@ class NPV(object):
             
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value > other.shift_to(new_time).value or self == other
+
+def generate_annuity(periods, cash_flow, rate):
+    """
+    Creates an NPV object from an annuity payment. Requires
+
+    Arguments:
+    ----------
+    periods : How many times the payment will be collected/made
+    cash_flow : How much money is payed per period
+    rate : rate of growth per period
+    """
+    new_NPV = NPV(0, 0, 0)
+    for x in range(1, periods + 1):
+        temp_NPV = NPV(x, cash_flow, rate).shift_to(0)
+        new_NPV.value += temp_NPV.value
+    return new_NPV
