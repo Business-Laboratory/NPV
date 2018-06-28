@@ -179,9 +179,7 @@ class NPV(object):
 
         # check type
         if not isinstance(other, NPV):
-            raise TypeError("Only NPVs can be compared.")
-        if (other.rate != self.rate):
-            raise TypeError("Only NPVs with the same rate can be compared.")    
+            raise TypeError("Only NPVs can be compared.") 
             
         new_time = min(self.time, other.time)
         return abs(self.shift_to(new_time).value - other.shift_to(new_time).value) < TOL
@@ -192,8 +190,6 @@ class NPV(object):
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
-        if (other.rate != self.rate):
-            raise TypeError("Only NPVs with the same rate can be compared.") 
             
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value < other.shift_to(new_time).value and self != other
@@ -204,8 +200,6 @@ class NPV(object):
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
-        if (other.rate != self.rate):
-            raise TypeError("Only NPVs with the same rate can be compared.") 
             
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value > other.shift_to(new_time).value and self != other
@@ -216,8 +210,6 @@ class NPV(object):
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
-        if (other.rate != self.rate):
-            raise TypeError("Only NPVs with the same rate can be compared.") 
             
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value < other.shift_to(new_time).value
@@ -228,8 +220,6 @@ class NPV(object):
         # check type
         if not isinstance(other, NPV):
             raise TypeError("Only NPVs can be compared.")
-        if (other.rate != self.rate):
-            raise TypeError("Only NPVs with the same rate can be compared.") 
             
         new_time = min(self.time, other.time)
         return self.shift_to(new_time).value > other.shift_to(new_time).value or self == other
