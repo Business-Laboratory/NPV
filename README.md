@@ -9,7 +9,6 @@ This calculator takes care of the tedious steps needed to compare or combine two
 * Basic arithmatic between two NPVs
   - Addition
   - Subtraction
-  - Add an annuity payment to the value of a project
 * Arithmatic with constants
   - Multiplication
   - Division
